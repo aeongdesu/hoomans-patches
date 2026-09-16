@@ -22,6 +22,20 @@ val blockLiveAdsPatch = bytecodePatch(
         ),
     )
 
+    val proxyUrl by stringOption(
+        name = "Proxy URL",
+        default = "https://eu.luminous.dev",
+        values = mapOf(
+            "https://eu.luminous.dev" to "https://eu.luminous.dev",
+            "https://as.luminous.dev" to "https://as.luminous.dev,
+            "https://lb-as.cdn-perfprod.com" to "https://lb-as.cdn-perfprod.com"
+        ),
+        required = true,
+        validator = {
+            value -> value != null && value.startsWith("https://")
+        }
+    )
+
     execute {
         // The live HLS URL is built in one lambda; its second instance field (b) holds the stream name.
         // Replace the whole body to return the equivalent Luminous proxy URL, so the player loads the
@@ -35,7 +49,7 @@ val blockLiveAdsPatch = bytecodePatch(
             """
                 new-instance v0, Ljava/lang/StringBuilder;
                 invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-                const-string v1, "https://eu.luminous.dev/playlist/"
+                const-string v1, "$proxyUrl/playlist/"
                 invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
                 iget-object v1, p0, $streamNameField
                 invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
