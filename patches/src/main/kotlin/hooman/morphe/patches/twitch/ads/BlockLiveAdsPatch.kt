@@ -29,7 +29,7 @@ val blockLiveAdsPatch = bytecodePatch(
         default = "https://eu.luminous.dev",
         values = mapOf(
             "https://eu.luminous.dev" to "https://eu.luminous.dev",
-            "https://as.luminous.dev" to "https://as.luminous.dev,
+            "https://as.luminous.dev" to "https://as.luminous.dev",
             "https://lb-as.cdn-perfprod.com" to "https://lb-as.cdn-perfprod.com"
         ),
         required = true,
