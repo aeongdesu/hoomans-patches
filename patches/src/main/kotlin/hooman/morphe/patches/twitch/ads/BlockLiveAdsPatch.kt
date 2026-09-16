@@ -24,7 +24,8 @@ val blockLiveAdsPatch = bytecodePatch(
     )
 
     val proxyUrl by stringOption(
-        name = "Proxy URL",
+        key = "proxyUrl"
+        title = "Proxy URL",
         default = "https://eu.luminous.dev",
         values = mapOf(
             "https://eu.luminous.dev" to "https://eu.luminous.dev",
